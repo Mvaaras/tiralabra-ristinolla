@@ -6,4 +6,4 @@
 - Ohjelma saa syötteiksi vastustajan (ihmisen) siirtoja yksi kerrallaan ja ne muuttavat asetelmaa josta minimax-haku suoritetaan.
 -Pelkän Minimaxin aikavaativuus on O(b^d) ja tilavaativuus on O(bd) jossa b on tutkittavien siirtojen määrä ja d on tutkinnan syvyys, koska kyseessä on puita tutkiva algoritmi. Tarkoitus olisi alpha-beta karsinnan avulla saavuttaa parempi tilanne.
 
-*Olen tietojenkäsittelytieteen kandidaattiopiskelija, dokumentaatiossa käytetty kieli on Suomi*
+*Olen tietojenkäsittelytieteen kandidaattiopiskelija, dokumentaatiossa käytetty kieli on suomi*
