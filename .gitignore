@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Mun omat kamat
+
+docs
+src
+build.py
+pyproject.toml
+setup.py
+.Rhistory
