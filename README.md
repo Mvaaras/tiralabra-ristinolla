@@ -5,4 +5,4 @@ Laaja viiden merkin ristinollatyyppinen peli (Gomoku) jota voidaan pelata tekoä
 ## Linkit Viikkoraportteihin
 
 [Viikko 1](dokumentaatio/viikko1.md)
-
+[Viikko 2](dokumentaatio/viikko2.md)
