@@ -10,4 +10,4 @@ En oppinut projektista mitään uutta koska käytännössä vain kirjoitin koodi
 
 Minulle on edelleen vähän epäselvää että miten parhaiten saan sen karsinnan toteutettua mahdollisimman tehokkaasti, joten joudun varmaan vihdoin irrottautumaan suunnitelmastani ja lukemaan ensi viikolla vähän lisää teoriaa. 
 
-Seuraavaksi haluan tehostaa hakua, hoitaa sen testaamisen kuntoon ja itkeä lisää.
+Seuraavaksi haluan tehostaa hakua, hoitaa sen testaamisen kuntoon ja itkeä lisää (vähän).
