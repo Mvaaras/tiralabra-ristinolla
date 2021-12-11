@@ -1,33 +1,33 @@
 rivit_katki = {
 #näitä vedetty hatusta, vähän sinne päin ja niin edelleen. Millaiset rivit hyviä?
-[1,1,1,1,1]:99999999,
-[1,1,0,1,1]:9000,
-[1,1,1,1,0]:90,
-[1,1,0,0,0]: 5,
-[1,0,1,0,0]: 5,
+"[1,1,1,1,1]":99999999,
+"[1,1,0,1,1]":90000,
+"[1,1,1,1,0]":9000,
+"[1,1,0,0,0]": 5,
+"[1,0,1,0,0]": 5,
 
-[1,1,1,0,1]:20,
-[1,1,0,1,1]:20,
+"[1,1,1,0,1]":20,
+"[1,1,0,1,1]":20,
 
-[1,1,1,0,0]:3,
-[1,1,0,1,0]:3,
+"[1,1,1,0,0]":3,
+"[1,1,0,1,0]":3,
 
-[0,0,0,0,0]:0,
+"[0,0,0,0,0]":0,
 
 
 }
 
 rivit_auki = {
-    [1,1,0,1,1]:9000,
-    [1,1,1,1,0]:9000,
-    [1,1,0,1,0]:90,
-    [0,1,1,1,0]:90,
-    [1,1,1,1,0]:900,
-    [1,0,1,0,0]: 10,
-    [1,1,0,0,0]: 10,
-    [1,1,0,0,-1]: 5,
-    [1,0,1,0,-1]: 5,
-    [1,0,0,0,0]:0,
+    "[1,1,0,1,1]":90000000000,
+    "[1,1,1,1,0]":900000,
+    "[1,1,0,1,0]":90,
+    "[0,1,1,1,0]":90,
+    "[1,1,1,1,0]":900,
+    "[1,0,1,0,0]": 10,
+    "[1,1,0,0,0]": 10,
+    "[1,1,0,0,-1]": 5,
+    "[1,0,1,0,-1]": 5,
+    "[1,0,0,0,0]":0,
     
 }
 
@@ -39,6 +39,7 @@ class minimaxeri():
         self.arvo = arvo
         self.lauta = [[0 for i in range(koko)] for j in range(koko)]
         self.arvioija = [0 for i in range(5)]
+        self.paras = [0,0,0]
 
     def arvioi(self, lauta,vuoro):
         laudan_arvo = 0
@@ -46,6 +47,8 @@ class minimaxeri():
             for j in range(self.koko):
                 if lauta[i][j] == vuoro:
                     laudan_arvo += self.arvio_apuri(j,i,vuoro)
+                elif lauta[i][j] != 0:
+                    laudan_arvo -= self.arvio_apuri(j,i,3-vuoro)
         
         return laudan_arvo
     
@@ -56,7 +59,7 @@ class minimaxeri():
             for j in range(self.koko):
                 if self.lauta[i][j] == 0:
                     siirrot.append([i,j])
-        siirrot.sort(key=self.jarjestysapuri)
+        siirrot.sort(key=self.jarjestysapuri,reverse=True)
         return siirrot
     
     def jarjestysapuri(self,x):
@@ -82,15 +85,18 @@ class minimaxeri():
                         skip = True
                     else:
                         arvo = -1
-                self.arvioija[x+i+1] = arvo
+                self.arvioija[i+1] = arvo
             if not skip:
-                if self.lauta[y][x+5] != 0:
+                try: 
+                    if self.lauta[y][x+5] != 0:
+                        katki = True
+                except: 
                     katki = True
                 try:
                     if katki:
-                        rivien_arvo += rivit_katki[self.arvioija]
+                        rivien_arvo += rivit_katki[str(self.arvioija)]
                     else:
-                        rivien_arvo += rivit_auki[self.arvioija]
+                        rivien_arvo += rivit_auki[str(self.arvioija)]
                 except:
                     rivien_arvo += sum(self.arvioija)
                 #Ei-arvioinnin arvoisille tilanteille ja niille joita ei ole vielä kirjoitettu
@@ -112,15 +118,18 @@ class minimaxeri():
                         skip = True
                     else:
                         arvo = -1
-                self.arvioija[x+i+1] = arvo
-            if self.lauta[y+5][x] != 0:
-                katki = True
+                self.arvioija[i+1] = arvo
+            try:
+                if self.lauta[y+5][x] != 0:
+                    katki = True
+            except: 
+                    katki = True
             if not skip:
                 try:
                     if katki:
-                        rivien_arvo += rivit_katki[self.arvioija]
+                        rivien_arvo += rivit_katki[str(self.arvioija)]
                     else:
-                        rivien_arvo += rivit_auki[self.arvioija]
+                        rivien_arvo += rivit_auki[str(self.arvioija)]
                 except:
                     rivien_arvo += sum(self.arvioija)
             
@@ -143,15 +152,18 @@ class minimaxeri():
                             skip = True
                         else:
                             arvo = -1
-                    self.arvioija[x+i+1] = arvo
-                if self.lauta[y+5][x+5] != 0:
+                    self.arvioija[i+1] = arvo
+                try:
+                    if self.lauta[y+5][x+5] != 0:
+                        katki = True
+                except:
                     katki = True
                 if not skip:
                     try:
                         if katki:
-                            rivien_arvo += rivit_katki[self.arvioija]
+                            rivien_arvo += rivit_katki[str(self.arvioija)]
                         else:
-                            rivien_arvo += rivit_auki[self.arvioija]
+                            rivien_arvo += rivit_auki[str(self.arvioija)]
                     except:
                         rivien_arvo += sum(self.arvioija)
             self.arvioija = [0 for i in range(5)]
@@ -172,15 +184,18 @@ class minimaxeri():
                             skip = True
                         else:
                             arvo = -1
-                    self.arvioija[x-i-1] = arvo
-                if self.lauta[y+5][x-5] != 0:
+                    self.arvioija[i+1] = arvo
+                try:
+                    if self.lauta[y+5][x-5] != 0:
+                        katki = True
+                except: 
                     katki = True
                 if not skip:
                     try:
                         if katki:
-                            rivien_arvo += rivit_katki[self.arvioija]
+                            rivien_arvo += rivit_katki[str(self.arvioija)]
                         else:
-                            rivien_arvo += rivit_auki[self.arvioija]
+                            rivien_arvo += rivit_auki[str(self.arvioija)]
                     except:
                         rivien_arvo += sum(self.arvioija)
             self.arvioija = [0 for i in range(5)]
@@ -208,7 +223,6 @@ class minimaxeri():
         #TODO
         #Varsinainen minimax haku
         #Jonka olisi tarkoitus antaa paras siirto
-
         if syvyys <= 0: return self.paras
 
         siirrot = self.hae_siirrot()
@@ -216,8 +230,9 @@ class minimaxeri():
             for i in siirrot:
                 self.lauta[i[0]][i[1]] = self.arvo
                 arvo = self.arvioi(self.lauta,self.arvo)
-                if arvo >= self.paras[0]:
-                    self.paras = [self.minimax(syvyys-1,False),i[0],i[1]]
+                if arvo > self.paras[0]:
+                    self.paras[0] = arvo
+                    self.paras = [self.minimax(syvyys-1,False)[0],i[0],i[1]]
                 self.lauta[i[0]][i[1]] = 0
         
         else:
@@ -228,8 +243,7 @@ class minimaxeri():
                 if arvo > hjalp[0]:
                     hjalp = [arvo,i[0],i[1]]
                 self.lauta[i[0]][i[1]] = 0
-            self.lauta[hjalp[1]][hjalp[2]] = 3-self.arvo
-            self.paras = [self.minimax(syvyys-1,True),hjalp[1],hjalp[2]]
+            self.paras = [self.paras[0],hjalp[1],hjalp[2]]
         
         return self.paras
 

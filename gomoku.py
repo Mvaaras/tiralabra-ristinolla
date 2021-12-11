@@ -1,4 +1,5 @@
-import gomoku_ai #eihän tämä vielä mitään tee, mutta siinä on kumminkin
+import gomoku_ai 
+import copy
 
 #import pygame Kun kaikki muu on valmista ja halutaan rakentaa visuaalinen näkymä;
 #Ennen tätä voidaan jatkaa minimaalisella tekstikäyttöliittymällä
@@ -6,6 +7,7 @@ import gomoku_ai #eihän tämä vielä mitään tee, mutta siinä on kumminkin
 
 pelaaja1 = 1
 pelaaja2 = 2
+
 
 #Pelaajan tyyppi vastaa siitä, tekeekö algoritmi seuraavan valinnan, vai tekeekö ihminen. 
 #Ennen tekoälyn luontia molempien pelaajien tyypin on oltava ihminen (True)
@@ -19,6 +21,7 @@ ihminen[pelaaja2] = False
 
 
 laudan_koko = 15
+tietokonepelaaja = gomoku_ai.minimaxeri(3,laudan_koko,2)
 
 
 def peli():
@@ -42,9 +45,19 @@ def peli():
             vuoro = vuoro_vaihda(vuoro)
 
         else:
-            #Ei tee vielä mitään (eikä pitäisi aktivoitua missään tilanteessa) 
-            #tähän kohtaan tulee peli-AI implementaatio, kun tulee
-            print ("Player passes...")
+            lauta = copy.deepcopy(pelilauta)
+            siirto = tietokonepelaaja.minimax_alku(lauta)
+            print (siirto)
+            siirto2 = str(siirto[1]) + "," + str(siirto[2])
+
+            if not hyvaksytty_siirto(siirto2,pelilauta,vuoro):
+                print ("hups, jokin meni pieleen")
+                break
+            for i in pelilauta:
+                print(i)
+            if tarkista_voitto(pelilauta):
+                voittaja = vuoro
+                break
             vuoro = vuoro_vaihda(vuoro)
     print (f"\nPelaaja {voittaja} voitti!")
 
