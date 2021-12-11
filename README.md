@@ -2,6 +2,8 @@
 
 Laaja viiden merkin ristinollatyyppinen peli (Gomoku) jota voidaan pelata tekoälyä vastaan. Toteutettu aineopintojen harjoitustyöksi, kirjoitettu Pythonilla.
 
+Käyntiin tämän saa ajamalla: python gomoku.py
+
 ## Linkit Viikkoraportteihin
 
 [Viikko 1](dokumentaatio/viikko1.md)
